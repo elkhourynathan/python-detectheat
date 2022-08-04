@@ -1,11 +1,15 @@
 import pygame
 import numpy as np
 from dataclasses import dataclass
+import sys
+
+# Increase recursion
+sys.setrecursionlimit(1000000)
 
 pygame.init()
 
-WHITE_THRESHOLD = 390 # max is 440
-LOADED_FILE = "images/infared2.webp"
+WHITE_THRESHOLD = 275 # max is 440
+LOADED_FILE = "images/infared3.jpeg"
 FONT = pygame.font.SysFont(None,24)
 RED = (255,0,0)
 TEXT = FONT.render("Target", True, RED)
@@ -54,7 +58,7 @@ def find_white_objects_bounds(surface: pygame.Surface) -> list[tuple[int, int, i
 
 def draw_red_boxes(surface, bounds: list[Bounds]):
     for bound in bounds:
-        if bound.max_x-bound.min_x >= 10 and bound.max_y-bound.min_y >= 10:
+        if bound.max_x-bound.min_x >= 15 and bound.max_y-bound.min_y >= 10:
             #pygame.draw.circle(surface, (255, 0, 0), ((bound.max_x+bound.min_x)//2, (bound.max_y+bound.min_y)//2), 5, 3)
             pygame.draw.rect(surface, (255, 0, 0), (bound.min_x,bound.min_y,bound.max_x-bound.min_x,bound.max_y-bound.min_y), 3)
             surface.blit(TEXT, (bound.min_x, bound.min_y-20))
